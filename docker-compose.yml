@@ -1,0 +1,32 @@
+version: "3"
+networks:
+  app-tier:
+    driver: bridge
+services:
+  mysqlserver:
+    image: mysql:5.7
+    container_name: mysqlserver
+    restart: always
+    environment:
+    - MYSQL_ROOT_PASSWORD=123456
+    networks:
+    - app-tier
+    ports:
+    - '3306:3306'
+    volumes:
+    - "./docker-file/mysql/db:/var/lib/mysql"
+    - "./docker-file/mysql/conf/my.cnf:/etc/my.cnf"
+    - "./docker-file/mysql/init:/docker-entrypoint-initdb.d/"
+  eggserver:
+    build:
+      context: .
+      dockerfile: docker-file/nodejs/dockerfile-node
+    image: eggserver
+    container_name: eggserver
+    restart: always
+    networks:
+    - app-tier
+    ports:
+    - '7001:7001'
+    depends_on:
+    - mysqlserver

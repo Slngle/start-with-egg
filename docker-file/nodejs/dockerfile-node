@@ -1,0 +1,10 @@
+FROM node:10.17.0
+MAINTAINER yujunmiao
+RUN mkdir -p /home/nodejs/egg/start-with-egg/
+WORKDIR /home/nodejs/egg/start-with-egg/
+COPY package.json /home/nodejs/egg/start-with-egg/package.json
+RUN npm set strict-ssl false
+RUN npm install --registry=https://registry.npm.taobao.org
+COPY . /home/nodejs/egg/start-with-egg/
+EXPOSE 7001
+CMD ["npm", "run", "start:docker"]
