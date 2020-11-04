@@ -2,7 +2,7 @@
 
 module.exports = app => {
   const { DATE, STRING, UUID, BIGINT } = app.Sequelize;
-  const User = app.model.define('user', {
+  return app.memberModel.define('user', {
     id: {
       type: UUID,
       primaryKey: true,
@@ -30,6 +30,4 @@ module.exports = app => {
     tableName: 'user',
     underscored: true,
   });
-
-  return User;
 };

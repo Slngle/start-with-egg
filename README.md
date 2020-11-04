@@ -71,3 +71,4 @@ egg-project
 ### 注意
 
 - 在生产环境中,你可能需要考虑使用迁移而不是在代码中调用sync()
+- controller不要调用不是自己的service 如 controller=》member=》user 只准调用 service=》member=》user

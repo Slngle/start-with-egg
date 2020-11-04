@@ -6,7 +6,7 @@ class UserService extends Service {
   async getUser() {
     const { ctx } = this;
     try {
-      const entry = await ctx.model.Member.User.findAll();
+      const entry = await ctx.memberModel.User.findAll();
       return {
         success: true,
         user: entry,

@@ -8,6 +8,7 @@ class UserController extends Controller {
     const params = ctx.query;
     const userList = await service.member.user.getUser();
     ctx.body = {
+      test: 1,
       success: true,
       data: userList,
     };
