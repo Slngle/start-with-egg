@@ -8,15 +8,15 @@ services:
     container_name: mysqlserver
     restart: always
     environment:
-    - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=123456
     networks:
-    - app-tier
+      - app-tier
     ports:
-    - '3306:3306'
+      - '3306:3306'
     volumes:
-    - "./docker-file/mysql/db:/var/lib/mysql"
-    - "./docker-file/mysql/conf/my.cnf:/etc/my.cnf"
-    - "./docker-file/mysql/init:/docker-entrypoint-initdb.d/"
+      - "./docker-file/mysql/db:/var/lib/mysql"
+      - "./docker-file/mysql/conf/my.cnf:/etc/my.cnf"
+      - "./docker-file/mysql/init:/docker-entrypoint-initdb.d/"
   eggserver:
     build:
       context: .
@@ -25,8 +25,24 @@ services:
     container_name: eggserver
     restart: always
     networks:
-    - app-tier
+      - app-tier
     ports:
-    - '7001:7001'
+      - '7001:7001'
     depends_on:
-    - mysqlserver
+      - mysqlserver
+#  nginx:
+#    build:
+#      context: .
+#      dockerfile: docker-file/nginx/dockerfile-nginx
+#    container_name: nginxserver
+#    image: nginxserver
+#    restart: always
+#    ports:
+#      - 2306:80
+#    privileged: true
+#    volumes:
+#      - "./docker-file/nginx/conf.d/nginx.conf:/etc/nginx/nginx.conf"
+#      - "./docker-file/nginx/html/:/usr/share/nginx/html/"
+#      - "./docker-file/nginx/logs/:/var/log/nginx/"
+#    networks:
+#      - app-tier
